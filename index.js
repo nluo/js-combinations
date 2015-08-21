@@ -1,15 +1,26 @@
 var clone = require('clone');
 
+module.exports = function(dataSet, repetition) {
+    if (!repetition) {
+        repetition = false;
+    }
 
-function combination(repetition, data) {
+    if (!Array.isArray(dataSet)){
+        return dataSet;
+    };
+
+    if (dataSet.length == 2 ) {
+        return dataSet;
+    }
+
     var combinations = [];
-    var temp = clone(data);
+    var temp = clone(dataSet);
 
     while (temp.length > 0) {
         var from = temp.pop();
 
-        for (var i=0; i<data.length; i++) {
-            var to = data[i];
+        for (var i=0; i<dataSet.length; i++) {
+            var to = dataSet[i];
 
             if (!repetition && from === to) {
                 continue;
@@ -19,24 +30,4 @@ function combination(repetition, data) {
         }
     }
     return combinations;
-}
-
-
-
-module.exports = function(dataSet, repeat) {
-
-    if (!repeat) {
-        repeat = false;
-    }
-
-    if (!Array.isArray(dataSet)){
-        return dataSet;
-    };
-
-
-    if (dataSet.length == 2 ) {
-        return dataSet;
-    }
-
-    return combination(repeat, dataSet);
 };
